@@ -1,0 +1,52 @@
+query getEstabelecimentosByLocation($lat: Float!, $long: Float!, $maxDist: Int = 100000) {
+  getEstabelecimentosByLocation(lat: $lat, long: $long, maxDist: $maxDist) {
+    IE
+    cnpjEstabelecimento
+    ativoEstabelecimento
+    complemento
+    distance
+    email
+    idEndereco_Endereco
+    idEstabelecimento
+    lat
+    long
+    nomeFantasia
+    numero
+    razaoSocial
+    telefone
+    whatsApp
+  }
+}
+
+type Query {
+    getEstabelecimentosByLocation (
+      lat: Float!
+      long: Float!
+      maxDist: Int
+    ): [GetEstabelecimentosByLocationOutput]
+  }
+
+type GetEstabelecimentosByLocationOutput {
+  IE : String
+  ativoEstabelecimento : Boolean
+  cnpjEstabelecimento : String
+  complemento : String
+  email : String
+  idEndereco_Endereco : Int
+  idEstabelecimento : Int!
+  lat : Float
+  long : Float
+  nomeFantasia : String
+  numero : Int
+  razaoSocial : String
+  telefone : String
+  whatsApp : String
+  distance: Float
+}
+
+/*
+
+passados a latitude e longitude são retornados os estabelecimentos ordenados por ordem de distância.
+Opcionalmente pode ser inserido a distância máxima.
+
+*/

@@ -1,0 +1,61 @@
+mutation AddPrato($categoria_Categoria: String = "Prato Executivo", $descricaoPrato: String = "", $fotoPrato: String = "", $estabelecimento: Int!, $nomePrato: String!, $valorPrato: Int!) {
+  insert_cadastroPrato(objects: {categoria_Categoria: $categoria_Categoria, descricaoPrato: $descricaoPrato, fotoPrato: $fotoPrato, idEstabelecimento_cadastroEstabelecimento: $estabelecimento, nomePrato: $nomePrato, valorPrato: $valorPrato}, on_conflict: {constraint: cadastroPrato_pk}) {
+    returning {
+      ativoCadastro
+      ativoPrato
+      avaliacaoPrato
+      categoria_Categoria
+      descricaoPrato
+      fotoPrato
+      idEstabelecimento_cadastroEstabelecimento
+      idPrato
+      nomePrato
+      valorPrato
+    }
+  }
+}
+
+/*
+
+
+passadas as seguintes informações é inserido um novo prato com o estabelecimento indicado
+  - !nomePrato (String),
+  - !idEstabelecimento_cadastroEstabelecimento (Int),
+  - !valorPrato (Int),
+  - categoria_Categoria (Int),
+  - descricaoPrato (String),
+  - fotoPrato (String)
+*/
+
+
+  {
+    "categoria_Categoria": "Prato Executivo",
+    "descricaoPrato": "Apenas outro prato de teste.",
+    "fotoPrato": "/path/to/prato",
+    "estabelecimento": 1,
+    "nomePrato": "Prato comestível",
+    "valorPrato": 2999
+  }
+
+  {
+    "insert_cadastroPrato": {
+      "returning": [
+        {
+          "Categorium": {
+            "categoria": "Prato Executivo",
+            "descricaoCategoria": null
+          },
+          "ativoCadastro": null,
+          "ativoPrato": null,
+          "avaliacaoPrato": null,
+          "categoria_Categoria": "Prato Executivo",
+          "descricaoPrato": "Apenas outro prato de teste.",
+          "fotoPrato": "/path/to/prato",
+          "idEstabelecimento_cadastroEstabelecimento": 1,
+          "idPrato": 15,
+          "nomePrato": "Prato comestível",
+          "valorPrato": 2999
+        }
+      ]
+    }
+  }

@@ -1,0 +1,37 @@
+
+mutation addEstabelecimento($IE: String!, $cnpjEstabelecimento: String!, $complemento: String = "", $email: String = "", $idEndereco_Endereco: Int!, $lat: float8 = 0, $long: float8 = 0, $nomeFantasia: String!, $numero: Int = 10, $razaoSocial: String!, $telefone: String = "", $whatsApp: String = "") {
+  insert_cadastroEstabelecimento_one(object: {IE: $IE, cnpjEstabelecimento: $cnpjEstabelecimento, complemento: $complemento, email: $email, idEndereco_Endereco: $idEndereco_Endereco, lat: $lat, long: $long, nomeFantasia: $nomeFantasia, numero: $numero, razaoSocial: $razaoSocial, telefone: $telefone, whatsApp: $whatsApp}) {
+    IE
+    ativoEstabelecimento
+    cnpjEstabelecimento
+    complemento
+    idEndereco_Endereco
+    email
+    idEstabelecimento
+    lat
+    long
+    numero
+    nomeFantasia
+    razaoSocial
+    telefone
+    whatsApp
+  }
+}
+
+/*
+
+passados as seguintes informações, é inserido no banco de dados um novo estabelecimento
+  - !IE (String),
+  - !cnpjEstabelecimento (String),
+  - !nomeFantasia (String),
+  - !razaoSocial (String),
+  - !idEndereco_Endereco (Int),
+  - complemento (String),
+  - email (String),
+  - lat (Float),
+  - long (Float),
+  - numero (Int),
+  - telefone (Int)
+
+
+*/

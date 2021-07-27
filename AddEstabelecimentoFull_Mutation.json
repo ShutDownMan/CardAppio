@@ -1,0 +1,34 @@
+mutation addEstabelecimento($IE: String!, $cnpjEstabelecimento: String!, $complemento: String = "", $email: String = "", $lat: float8 = 0, $long: float8 = 0, $nomeFantasia: String!, $numero: Int = 10, $razaoSocial: String!, $telefone: String = "", $whatsApp: String = "", $CEP: String = "", $nomeCidade: String = "", $siglaUF_UnidadeFederacao: String = "", $idLogradouro: Int = 10, $nomeLogradouro: String = "") {
+  insert_cadastroEstabelecimento_one(object: {IE: $IE, cnpjEstabelecimento: $cnpjEstabelecimento, complemento: $complemento, email: $email, lat: $lat, long: $long, nomeFantasia: $nomeFantasia, numero: $numero, razaoSocial: $razaoSocial, telefone: $telefone, whatsApp: $whatsApp, Endereco: {data: {CEP: $CEP, Cidade: {data: {nomeCidade: $nomeCidade, siglaUF_UnidadeFederacao: $siglaUF_UnidadeFederacao}}, Logradouro: {data: {idLogradouro: $idLogradouro, nomeLogradouro: $nomeLogradouro}}}}}) {
+    IE
+    ativoEstabelecimento
+    cnpjEstabelecimento
+    complemento
+    idEndereco_Endereco
+    email
+    idEstabelecimento
+    lat
+    long
+    numero
+    nomeFantasia
+    razaoSocial
+    telefone
+    whatsApp
+    Endereco {
+      CEP
+      idBairro_Bairro
+      idCidade_Cidade
+      idEndereco
+      idLogradouro_Logradouro
+      Cidade {
+        idCidade
+        nomeCidade
+        siglaUF_UnidadeFederacao
+        UnidadeFederacao {
+          nomeUF
+          siglaUF
+        }
+      }
+    }
+  }
+}

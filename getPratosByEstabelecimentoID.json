@@ -1,0 +1,21 @@
+query getPratosByEstabelecimentoID($estabelecimentoID: Int!) {
+  cadastroPrato(where: {idEstabelecimento_cadastroEstabelecimento: {_eq: $estabelecimentoID}}) {
+    ativoPrato
+    avaliacaoPrato
+    descricaoPrato
+    fotoPrato
+    idEstabelecimento_cadastroEstabelecimento
+    idPrato
+    nomePrato
+    valorPrato
+    categoria_Categoria
+  }
+}
+
+{"estabelecimentoID": 1}
+
+/*
+
+passado o id do estabelecimento é retornado todos os pratos cadastrados por este
+
+*/

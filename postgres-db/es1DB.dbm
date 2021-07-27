@@ -1,0 +1,322 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+CAUTION: Do not modify this file unless you know what you are doing.
+         Unexpected results may occur if the code is changed deliberately.
+-->
+<dbmodel pgmodeler-ver="0.9.3" use-changelog="false" last-position="0,278" last-zoom="0.95" max-obj-count="10"
+	 default-schema="public" default-owner="postgres">
+<database name="ModeloESI" is-template="false" allow-conns="true">
+</database>
+
+<schema name="public" layer="0" fill-color="#e1e1e1" sql-disabled="true">
+</schema>
+
+<table name="UnidadeFederacao" layer="0" collapse-mode="1" max-obj-count="2" z-value="0">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="20" y="20"/>
+	<column name="siglaUF" not-null="true">
+		<type name="varchar" length="2"/>
+	</column>
+	<column name="nomeUF">
+		<type name="varchar" length="45"/>
+	</column>
+	<constraint name="UnidadeFederacao_pk" type="pk-constr" table="public.&quot;UnidadeFederacao&quot;">
+		<columns names="siglaUF" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="Bairro" layer="0" collapse-mode="1" max-obj-count="2" z-value="0">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="420" y="20"/>
+	<column name="idBairro" not-null="true">
+		<type name="serial" length="0"/>
+	</column>
+	<column name="nomeBairro">
+		<type name="varchar" length="120"/>
+	</column>
+	<constraint name="Bairro_pk" type="pk-constr" table="public.&quot;Bairro&quot;">
+		<columns names="idBairro" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="TipoLogradouro" layer="0" collapse-mode="1" max-obj-count="2" z-value="0">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="840" y="20"/>
+	<column name="siglaLogradouro" not-null="true">
+		<type name="varchar" length="45"/>
+	</column>
+	<column name="nomeTipo">
+		<type name="varchar" length="45"/>
+	</column>
+	<constraint name="TipoLogadouro_pk" type="pk-constr" table="public.&quot;TipoLogradouro&quot;">
+		<columns names="siglaLogradouro" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="Cidade" layer="0" collapse-mode="1" max-obj-count="3" z-value="0">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="20" y="240"/>
+	<column name="idCidade" not-null="true">
+		<type name="serial" length="0"/>
+	</column>
+	<column name="nomeCidade">
+		<type name="varchar" length="120"/>
+	</column>
+	<constraint name="Cidade_pk" type="pk-constr" table="public.&quot;Cidade&quot;">
+		<columns names="idCidade" ref-type="src-columns"/>
+	</constraint>
+
+	<customidxs object-type="column">
+		<object name="siglaUF_UnidadeFederacao" index="2"/>
+	</customidxs>
+
+	<customidxs object-type="constraint">
+		<object name="UnidadeFederacao_fk" index="1"/>
+	</customidxs>
+</table>
+
+<table name="Endereco" layer="0" collapse-mode="1" max-obj-count="6" z-value="0">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="400" y="240"/>
+	<column name="idEndereco" not-null="true">
+		<type name="serial" length="0"/>
+	</column>
+	<column name="CEP">
+		<type name="varchar" length="8"/>
+	</column>
+	<constraint name="Endereco_pk" type="pk-constr" table="public.&quot;Endereco&quot;">
+		<columns names="idEndereco" ref-type="src-columns"/>
+	</constraint>
+
+	<customidxs object-type="column">
+		<object name="idBairro_Bairro" index="4"/>
+		<object name="idCidade_Cidade" index="2"/>
+		<object name="idLogradouro_Logradouro" index="3"/>
+	</customidxs>
+
+	<customidxs object-type="constraint">
+		<object name="Bairro_fk" index="3"/>
+		<object name="Cidade_fk" index="1"/>
+		<object name="Logradouro_fk" index="2"/>
+	</customidxs>
+</table>
+
+<table name="Logradouro" layer="0" collapse-mode="1" max-obj-count="3" z-value="0">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="840" y="240"/>
+	<column name="idLogradouro" not-null="true">
+		<type name="serial" length="0"/>
+	</column>
+	<column name="nomeLogradouro">
+		<type name="varchar" length="120"/>
+	</column>
+	<constraint name="Logadouro_pk" type="pk-constr" table="public.&quot;Logradouro&quot;">
+		<columns names="idLogradouro" ref-type="src-columns"/>
+	</constraint>
+
+	<customidxs object-type="column">
+		<object name="siglaLogradouro_TipoLogradouro" index="2"/>
+	</customidxs>
+
+	<customidxs object-type="constraint">
+		<object name="TipoLogradouro_fk" index="1"/>
+	</customidxs>
+</table>
+
+<relationship name="UnidadeFederacao_has_many_Cidade" type="rel1n" layer="0"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#000000"
+	 src-table="public.&quot;UnidadeFederacao&quot;"
+	 dst-table="public.&quot;Cidade&quot;"
+	 src-required="false" dst-required="false">
+	<label ref-type="name-label">
+		<position x="9.37856" y="-6.35695"/>
+	</label>
+</relationship>
+
+<relationship name="Cidade_has_many_Endereco" type="rel1n" layer="0"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#000000"
+	 src-table="public.&quot;Cidade&quot;"
+	 dst-table="public.&quot;Endereco&quot;"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="TipoLogadouro_has_many_Logadouro" type="rel1n" layer="0"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#000000"
+	 src-table="public.&quot;TipoLogradouro&quot;"
+	 dst-table="public.&quot;Logradouro&quot;"
+	 src-required="false" dst-required="false">
+	<label ref-type="name-label">
+		<position x="9.21042" y="-6.35695"/>
+	</label>
+</relationship>
+
+<relationship name="Logadouro_has_many_Endereco" type="rel1n" layer="0"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#000000"
+	 src-table="public.&quot;Logradouro&quot;"
+	 dst-table="public.&quot;Endereco&quot;"
+	 src-required="false" dst-required="false">
+	<label ref-type="name-label">
+		<position x="2.23693" y="3.38716"/>
+	</label>
+</relationship>
+
+<relationship name="Bairro_has_many_Endereco" type="rel1n" layer="0"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#000000"
+	 src-table="public.&quot;Bairro&quot;"
+	 dst-table="public.&quot;Endereco&quot;"
+	 src-required="false" dst-required="false">
+	<label ref-type="name-label">
+		<position x="-3.03897" y="-6.35695"/>
+	</label>
+</relationship>
+
+<table name="cadastroPrato" layer="0" collapse-mode="1" max-obj-count="12" z-value="0">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="140" y="460"/>
+	<column name="idPrato" not-null="true">
+		<type name="serial" length="0"/>
+	</column>
+	<column name="nomePrato">
+		<type name="varchar" length="45"/>
+	</column>
+	<column name="valorPrato">
+		<type name="integer" length="0"/>
+	</column>
+	<column name="categoria">
+		<type name="integer" length="0"/>
+	</column>
+	<column name="fotoPrato">
+		<type name="varchar" length="300"/>
+	</column>
+	<column name="descricaoPrato">
+		<type name="varchar" length="500"/>
+	</column>
+	<column name="ativoPrato">
+		<type name="bool" length="0"/>
+	</column>
+	<column name="avaliacaoPrato">
+		<type name="float" length="0"/>
+	</column>
+	<constraint name="cadastroPrato_pk" type="pk-constr" table="public.&quot;cadastroPrato&quot;">
+		<columns names="idPrato" ref-type="src-columns"/>
+	</constraint>
+
+	<customidxs object-type="column">
+		<object name="categoria_Categoria" index="8"/>
+	</customidxs>
+
+	<customidxs object-type="constraint">
+		<object name="Categoria_fk" index="1"/>
+	</customidxs>
+</table>
+
+<table name="cadastroEstabelecimento" layer="0" collapse-mode="1" max-obj-count="16" z-value="0">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="780" y="500"/>
+	<column name="idEstabeleciemento" not-null="true">
+		<type name="serial" length="0"/>
+	</column>
+	<column name="razaoSocial">
+		<type name="varchar" length="45"/>
+	</column>
+	<column name="nomeFantasia">
+		<type name="varchar" length="45"/>
+	</column>
+	<column name="ativoEstabelecimento">
+		<type name="bool" length="0"/>
+	</column>
+	<column name="cnpjEstabelecimento">
+		<type name="integer" length="0"/>
+	</column>
+	<column name="telefone">
+		<type name="varchar" length="12"/>
+	</column>
+	<column name="email">
+		<type name="varchar" length="45"/>
+	</column>
+	<column name="IE">
+		<type name="varchar" length="9"/>
+	</column>
+	<column name="whattsApp">
+		<type name="varchar" length="12"/>
+	</column>
+	<column name="lat">
+		<type name="integer" length="0"/>
+	</column>
+	<column name="long">
+		<type name="integer" length="0"/>
+	</column>
+	<column name="complemento">
+		<type name="varchar" length="45"/>
+	</column>
+	<column name="numero">
+		<type name="integer" length="0"/>
+	</column>
+	<constraint name="cadastroEstabeleciemento_pk" type="pk-constr" table="public.&quot;cadastroEstabelecimento&quot;">
+		<columns names="idEstabeleciemento" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="Categoria" layer="0" collapse-mode="1" max-obj-count="2" z-value="0">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="280" y="780"/>
+	<column name="categoria" not-null="true">
+		<type name="varchar" length="45"/>
+	</column>
+	<column name="descricaoCategoria">
+		<type name="varchar" length="500"/>
+	</column>
+	<constraint name="Tag_pk" type="pk-constr" table="public.&quot;Categoria&quot;">
+		<columns names="categoria" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<relationship name="Categoria_has_many_cadastroPrato" type="rel1n" layer="0"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#266f82"
+	 src-table="public.&quot;Categoria&quot;"
+	 dst-table="public.&quot;cadastroPrato&quot;"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="cadastroEstabelecimento_has_many_cadastroPrato" type="rel1n" layer="0"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 src-table="public.&quot;cadastroEstabelecimento&quot;"
+	 dst-table="public.&quot;cadastroPrato&quot;"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="Endereco_has_many_cadastroEstabelecimento" type="rel1n" layer="0"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 src-table="public.&quot;Endereco&quot;"
+	 dst-table="public.&quot;cadastroEstabelecimento&quot;"
+	 src-required="false" dst-required="false"/>
+
+</dbmodel>
